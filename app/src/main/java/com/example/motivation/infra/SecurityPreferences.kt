@@ -12,7 +12,7 @@ class SecurityPreferences(context: Context) {
         security.edit().putString(key, str).apply()
     }
 
-    fun getString(key: String): String {
+    fun getStorage(key: String): String {
         return security.getString(key, "") ?: ""
     }
 }

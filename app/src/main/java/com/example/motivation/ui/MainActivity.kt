@@ -10,6 +10,7 @@ import com.example.motivation.R
 import com.example.motivation.data.Mock
 import com.example.motivation.infra.SecurityPreferences
 import com.example.motivation.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
@@ -41,21 +42,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-        when (view.id) {
-            R.id.button_new_phrase -> {
-                handleNextPhrase()
-            }
-            in listOf(R.id.image_all, R.id.image_happy, R.id.image_sunny) -> {
-                handleFilter(view.id)
-            }
-            R.id.text_user_name -> {
-                startActivity(Intent(this, UserActivity::class.java))
-            }
+        if (view.id in listOf(R.id.image_all, R.id.image_happy, R.id.image_sunny)) {
+            handleFilter(view.id)
+        } else if (view.id == R.id.button_new_phrase) {
+            handleNextPhrase()
         }
+//        else if (view.id == R.id.text_user_name) {
+//            startActivity(Intent(this, UserActivity::class.java))
+//        }
     }
 
     private fun handleNextPhrase() {
-        binding.textPhrase.text = Mock().getPhrase(categoryId)
+        val mock = Mock()
+
+        binding.textPhrase.text = mock.getPhrase(categoryId, Locale.getDefault().language)
     }
 
     private fun handleFilter(id: Int) {
@@ -82,7 +82,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handleUserName() {
-        val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
+        val name = SecurityPreferences(this).getStorage(MotivationConstants.KEY.USER_NAME)
+
+        if (name == "") {
+            startActivity(Intent(this, UserActivity::class.java))
+        }
+        
         binding.textUserName.text = "Olá, $name!"
     }
 }
