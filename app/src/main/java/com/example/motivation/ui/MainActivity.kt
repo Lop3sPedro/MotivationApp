@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (name == "") {
             startActivity(Intent(this, UserActivity::class.java))
         }
-        
+
         binding.textUserName.text = "Olá, $name!"
     }
 }
