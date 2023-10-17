@@ -44,6 +44,7 @@
         android:fontFamily="@font/cabin"
         android:textAllCaps="true"
         android:text="@string/save"
+        android:textColor="@color/white"
         app:cornerRadius="0dp" />
 
 </RelativeLayout>

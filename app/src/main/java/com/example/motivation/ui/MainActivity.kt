@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         } else if (view.id == R.id.button_new_phrase) {
             handleNextPhrase()
         }
-//        else if (view.id == R.id.text_user_name) {
-//            startActivity(Intent(this, UserActivity::class.java))
-//        }
+        else if (view.id == R.id.text_user_name) {
+            startActivity(Intent(this, UserActivity::class.java))
+        }
     }
 
     private fun handleNextPhrase() {
@@ -83,11 +83,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun handleUserName() {
         val name = SecurityPreferences(this).getStorage(MotivationConstants.KEY.USER_NAME)
+        val hello = resources.getString(R.string.hello)
 
         if (name == "") {
             startActivity(Intent(this, UserActivity::class.java))
         }
 
-        binding.textUserName.text = "Olá, $name!"
+        binding.textUserName.text = "$hello, $name!"
     }
 }
